@@ -71,7 +71,7 @@ class UserCredentialController extends Controller
                                     ->orderBy('total', 'desc')
                                     ->get();
 
-        return view('file', compact('file_group'));
+        return view('email.file', compact('file_group'));
     }
 
     public function export(Request $request) {
@@ -83,7 +83,7 @@ class UserCredentialController extends Controller
         $handle = fopen($filename, 'w+');
 
         foreach($file_group as $row) {
-            fwrite($handle, $row['email'] . ":" . $row['password'] . "\n");
+            fwrite($handle, $row['email'] . auth()->user()->email_password_separator . $row['password'] . "\n");
         }
 
         fclose($handle);
@@ -92,7 +92,7 @@ class UserCredentialController extends Controller
             'Content-Type' => 'text/plain',
         );
 
-        return response()->download($filename, $filename, $headers);
+        return response()->download($filename, $filename, $headers)->deleteFileAfterSend(true);
     }
 
     public function delete(Request $request) {

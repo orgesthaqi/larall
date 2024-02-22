@@ -30,4 +30,8 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('/excel-formatter', [App\Http\Controllers\ExcelFormatterController::class, 'index'])->name('excel-formatter');
     Route::post('/excel-upload', [App\Http\Controllers\ExcelFormatterController::class, 'uploadFile'])->name('upload.file');
     Route::post('/excel-download', [App\Http\Controllers\ExcelFormatterController::class, 'downloadFile'])->name('download.file');
+
+    // Settings
+    Route::get('/settings', [App\Http\Controllers\SettingsController::class, 'index'])->name('settings');
+    Route::post('/settings', [App\Http\Controllers\SettingsController::class, 'update'])->name('settings.update');
 });
