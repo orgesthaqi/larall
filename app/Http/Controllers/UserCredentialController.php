@@ -61,7 +61,7 @@ class UserCredentialController extends Controller
             UserCredential::insert($chunk->toArray());
         });
 
-        return redirect()->route('home');
+        return redirect()->route('email-formatter');
     }
 
     public function file(Request $request) {
