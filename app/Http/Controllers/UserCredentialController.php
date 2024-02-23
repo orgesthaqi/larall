@@ -22,16 +22,25 @@ class UserCredentialController extends Controller
     public function storeFromFile(Request $request) {
         $path = $request->file('credentials')->getRealPath();
         $uuid = time();
-        $insertData = [];
+        $insert_data = [];
 
         $file = fopen($path, 'r');
 
         while (($line = fgetcsv($file)) !== FALSE) {
             if (!isset($line[0])) {
-                continue;
+                continue; // Skip the iteration if the line is empty
             }
 
             $emailAndPassword = explode(':', $line[0]);
+
+            if(count($emailAndPassword) < 2) {
+                continue; // Skip the iteration if the line does not contain both email and password
+            }
+
+            if (!filter_var($emailAndPassword[0], FILTER_VALIDATE_EMAIL)) {
+                continue; // Skip the iteration if the email is not valid
+            }
+
             $email = $emailAndPassword[0];
             $password = $emailAndPassword[1];
 
