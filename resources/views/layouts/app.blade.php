@@ -34,6 +34,9 @@
                         <li class="nav-item active">
                             <a class="nav-link" href="{{ route('email-formatter') }}">Email formatter</a>
                         </li>
+                        <li class="nav-item active">
+                            <a class="nav-link" href="{{ route('randoms') }}">Randoms</a>
+                        </li>
                     </ul>
                 @endif
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">

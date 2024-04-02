@@ -26,6 +26,17 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('/export', [App\Http\Controllers\UserCredentialController::class, 'export'])->name('export');
     Route::delete('/delete', [App\Http\Controllers\UserCredentialController::class, 'delete'])->name('delete');
 
+    // Randoms
+    Route::get('/randoms', [App\Http\Controllers\RandomNameSurnameController::class, 'index'])->name('randoms');
+    Route::post('/upload-randoms', [App\Http\Controllers\RandomNameSurnameController::class, 'storeFromFile'])->name('randoms.upload');
+    Route::get('/export-randoms/{name}', [App\Http\Controllers\RandomNameSurnameController::class, 'export'])->name('randoms.export');
+    Route::delete('/delete-randoms/{id}', [App\Http\Controllers\RandomNameSurnameController::class, 'delete'])->name('randoms.delete');
+    Route::get('/store-name', [App\Http\Controllers\RandomNameSurnameController::class, 'storeNameView'])->name('randoms.store.view.name');
+    Route::get('/store-surname', [App\Http\Controllers\RandomNameSurnameController::class, 'storeSurnameView'])->name('randoms.store.view.surname');
+    Route::post('/store-name', [App\Http\Controllers\RandomNameSurnameController::class, 'storeName'])->name('randoms.store.name');
+    Route::post('/store-surname', [App\Http\Controllers\RandomNameSurnameController::class, 'storeSurname'])->name('randoms.store.surname');
+    Route::post('/random-generator', [App\Http\Controllers\RandomNameSurnameController::class, 'generator'])->name('randoms.generator');
+
     // Excel Formatter
     Route::get('/excel-formatter', [App\Http\Controllers\ExcelFormatterController::class, 'index'])->name('excel-formatter');
     Route::post('/excel-upload', [App\Http\Controllers\ExcelFormatterController::class, 'uploadFile'])->name('upload.file');
