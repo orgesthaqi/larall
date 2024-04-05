@@ -211,9 +211,16 @@ class RandomNameSurnameController extends Controller
     }
 
 
-    public function delete($id)
+    public function deleteName($id)
     {
         RandomName::where('id', $id)->delete();
+
+        return redirect()->route('randoms');
+    }
+
+    public function deleteSurname($id)
+    {
+        RandomSurname::where('id', $id)->delete();
 
         return redirect()->route('randoms');
     }

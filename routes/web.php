@@ -30,7 +30,8 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('/randoms', [App\Http\Controllers\RandomNameSurnameController::class, 'index'])->name('randoms');
     Route::post('/upload-randoms', [App\Http\Controllers\RandomNameSurnameController::class, 'storeFromFile'])->name('randoms.upload');
     Route::get('/export-randoms/{name}', [App\Http\Controllers\RandomNameSurnameController::class, 'export'])->name('randoms.export');
-    Route::delete('/delete-randoms/{id}', [App\Http\Controllers\RandomNameSurnameController::class, 'delete'])->name('randoms.delete');
+    Route::delete('/delete-name/{id}', [App\Http\Controllers\RandomNameSurnameController::class, 'deleteName'])->name('randoms.name.delete');
+    Route::delete('/delete-surname/{id}', [App\Http\Controllers\RandomNameSurnameController::class, 'deleteSurname'])->name('randoms.surname.delete');
     Route::get('/store-name', [App\Http\Controllers\RandomNameSurnameController::class, 'storeNameView'])->name('randoms.store.view.name');
     Route::get('/store-surname', [App\Http\Controllers\RandomNameSurnameController::class, 'storeSurnameView'])->name('randoms.store.view.surname');
     Route::post('/store-name', [App\Http\Controllers\RandomNameSurnameController::class, 'storeName'])->name('randoms.store.name');

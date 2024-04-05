@@ -4,32 +4,8 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <div class="card mb-5">
-                <div class="card-header">Upload File</div>
-
-                <div class="card-body">
-                    <form action="{{ route('randoms.store.view.name') }}" method="post" enctype="multipart/form-data">
-                        @csrf
-                        <div class="form-group mb-3">
-                            <label for="group_name">Gender</label>
-                            <select class="form-select" name="gender" id="gender" required>
-                                <option value="m">Male</option>
-                                <option value="f">Female</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="name_surname">Upload File: Name Surname</label>
-                            <input type="file" class="form-control form-control-file" id="name_surname" name="name_surname" required>
-                        </div>
-                        <div class="form-group">
-                            <button type="submit" class="btn btn-primary mt-2">Upload</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-
-            <div class="card mb-5">
-                <div class="card-header">Random Generator</div>
+            <div class="card mb-3 mb-5">
+                <div class="card-header text-white bg-primary">Random Generator</div>
 
                 <div class="card-body">
                     <form action="{{ route('randoms.generator') }}" method="post">
@@ -54,6 +30,30 @@
             </div>
 
             <div class="card mb-5">
+                <div class="card-header">Upload Name Surname File</div>
+
+                <div class="card-body">
+                    <form action="{{ route('randoms.store.view.name') }}" method="post" enctype="multipart/form-data">
+                        @csrf
+                        <div class="form-group mb-3">
+                            <label for="group_name">Gender</label>
+                            <select class="form-select" name="gender" id="gender" required>
+                                <option value="m">Male</option>
+                                <option value="f">Female</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="name_surname">Upload File: Name Surname</label>
+                            <input type="file" class="form-control form-control-file" id="name_surname" name="name_surname" required>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary mt-2">Upload</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="card mb-5">
                 <div class="card-header">Names</div>
                 <div class="card-header text-end">
                     <a href="{{ route('randoms.store.view.name') }}" class="btn btn-primary">Add New</a>
@@ -65,8 +65,8 @@
                             <tr>
                                 <th>Name</th>
                                 <th>Gender</th>
-                                <th>Export</th>
-                                <th>Delete</th>
+                                <th style="text-align: end;">Export</th>
+                                <th style="text-align: end;">Delete</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -74,11 +74,11 @@
                                 <tr>
                                     <td>{{ $name->name }}</td>
                                     <td>{{ $name->gender == 'm' ? 'Male' : 'Female' }}</td>
-                                    <td>
+                                    <td style="text-align: end;">
                                         <a href="{{ route('randoms.export', ['name' => $name->name]) }}" class="btn btn-primary">Export</a>
                                     </td>
-                                    <td>
-                                        <form action="{{ route('randoms.delete', ['id' => $name->id]) }}" method="post">
+                                    <td style="text-align: end;">
+                                        <form action="{{ route('randoms.name.delete', ['id' => $name->id]) }}" method="post">
                                             @csrf
                                             @method('delete')
                                             <input type="hidden" name="name" value="{{ $name->name }}">
@@ -103,12 +103,21 @@
                         <thead>
                             <tr>
                                 <th>Name</th>
+                                <th style="text-align: end;">Delete</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach($surnames as $surname)
                                 <tr>
                                     <td>{{ $surname->surname }}</td>
+                                    <td style="text-align: end;">
+                                        <form action="{{ route('randoms.surname.delete', ['id' => $surname->id]) }}" method="post">
+                                            @csrf
+                                            @method('delete')
+                                            <input type="hidden" name="surname" value="{{ $surname->surname }}">
+                                            <button type="submit" class="btn btn-danger">Delete</button>
+                                        </form>
+                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>
