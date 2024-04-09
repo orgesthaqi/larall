@@ -12,6 +12,7 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
@@ -29,7 +30,7 @@
                             <a class="nav-link" href="{{ route('home') }}">Home</a>
                         </li>
                         <li class="nav-item active">
-                            <a class="nav-link" href="{{ route('excel-formatter') }}">Excel formatter</a>
+                            <a class="nav-link" href="{{ route('leads') }}">Leads</a>
                         </li>
                         <li class="nav-item active">
                             <a class="nav-link" href="{{ route('email-formatter') }}">Email formatter</a>

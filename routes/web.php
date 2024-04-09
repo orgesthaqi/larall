@@ -39,7 +39,7 @@ Route::group(['middleware' => 'auth'], function() {
     Route::post('/random-generator', [App\Http\Controllers\RandomNameSurnameController::class, 'generator'])->name('randoms.generator');
 
     // Excel Formatter
-    Route::get('/excel-formatter', [App\Http\Controllers\ExcelFormatterController::class, 'index'])->name('excel-formatter');
+    Route::get('/leads', [App\Http\Controllers\ExcelFormatterController::class, 'index'])->name('leads');
     Route::post('/excel-upload', [App\Http\Controllers\ExcelFormatterController::class, 'uploadFile'])->name('upload.file');
     Route::post('/excel-download', [App\Http\Controllers\ExcelFormatterController::class, 'downloadFile'])->name('download.file');
 

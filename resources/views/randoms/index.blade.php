@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card mb-3 mb-5">
-                <div class="card-header text-white bg-primary">Random Generator</div>
+                <div class="card-header">Random Generator</div>
 
                 <div class="card-body">
                     <form action="{{ route('randoms.generator') }}" method="post">
@@ -30,98 +30,116 @@
             </div>
 
             <div class="card mb-5">
-                <div class="card-header">Upload Name Surname File</div>
+                <div class="card-header d-flex justify-content-between align-items-center" data-bs-toggle="collapse" href="#collapseUploadNameSurname" role="button" aria-expanded="false" aria-controls="collapseUploadNameSurname">
+                    <div>Upload Name Surname File </div>
+                    <i class="bi bi-arrow-down-square"></i></button>
+                </div>
 
-                <div class="card-body">
-                    <form action="{{ route('randoms.store.view.name') }}" method="post" enctype="multipart/form-data">
-                        @csrf
-                        <div class="form-group mb-3">
-                            <label for="group_name">Gender</label>
-                            <select class="form-select" name="gender" id="gender" required>
-                                <option value="m">Male</option>
-                                <option value="f">Female</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="name_surname">Upload File: Name Surname</label>
-                            <input type="file" class="form-control form-control-file" id="name_surname" name="name_surname" required>
-                        </div>
-                        <div class="form-group">
-                            <button type="submit" class="btn btn-primary mt-2">Upload</button>
-                        </div>
-                    </form>
+                <div class="collapse" id="collapseUploadNameSurname">
+                    <div class="card-body">
+                        <form action="{{ route('randoms.store.view.name') }}" method="post" enctype="multipart/form-data">
+                            @csrf
+                            <div class="form-group mb-3">
+                                <label for="group_name">Gender</label>
+                                <select class="form-select" name="gender" id="gender" required>
+                                    <option value="m">Male</option>
+                                    <option value="f">Female</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="name_surname">Upload File: Name Surname</label>
+                                <input type="file" class="form-control form-control-file" id="name_surname" name="name_surname" required>
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-primary mt-2">Upload</button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
 
             <div class="card mb-5">
-                <div class="card-header">Names</div>
-                <div class="card-header text-end">
-                    <a href="{{ route('randoms.store.view.name') }}" class="btn btn-primary">Add New</a>
+                <div class="card-header d-flex justify-content-between align-items-center" data-bs-toggle="collapse" href="#collapseName" role="button" aria-expanded="false" aria-controls="collapseName">
+                    <div>Names</div>
+                    <i class="bi bi-arrow-down-square"></i></button>
                 </div>
 
-                <div class="card-body">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Gender</th>
-                                <th style="text-align: end;">Export</th>
-                                <th style="text-align: end;">Delete</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach($names as $name)
+                <div class="collapse" id="collapseName">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span></span>
+                            <a href="{{ route('randoms.store.view.name') }}" class="btn btn-primary ms-auto mb-2">Create <i class="bi bi-file-earmark-plus"></i></a>
+                        </div>
+                        <table class="table">
+                            <thead>
                                 <tr>
-                                    <td>{{ $name->name }}</td>
-                                    <td>{{ $name->gender == 'm' ? 'Male' : 'Female' }}</td>
-                                    <td style="text-align: end;">
-                                        <a href="{{ route('randoms.export', ['name' => $name->name]) }}" class="btn btn-primary">Export</a>
-                                    </td>
-                                    <td style="text-align: end;">
-                                        <form action="{{ route('randoms.name.delete', ['id' => $name->id]) }}" method="post">
-                                            @csrf
-                                            @method('delete')
-                                            <input type="hidden" name="name" value="{{ $name->name }}">
-                                            <button type="submit" class="btn btn-danger">Delete</button>
-                                        </form>
-                                    </td>
+                                    <th>Name</th>
+                                    <th>Gender</th>
+                                    <th style="text-align: end;">Export</th>
+                                    <th style="text-align: end;">Delete</th>
                                 </tr>
-                            @endforeach
-                        </tbody>
-                      </table>
+                            </thead>
+                            <tbody>
+                                @foreach($names as $name)
+                                    <tr>
+                                        <td>{{ $name->name }}</td>
+                                        <td>{{ $name->gender == 'm' ? 'Male' : 'Female' }}</td>
+                                        <td style="text-align: end;">
+                                            <a href="{{ route('randoms.export', ['name' => $name->name]) }}" class="btn btn-primary"><i class="bi bi-file-earmark-bar-graph"></i></a>
+                                        </td>
+                                        <td style="text-align: end;">
+                                            <form action="{{ route('randoms.name.delete', ['id' => $name->id]) }}" method="post">
+                                                @csrf
+                                                @method('delete')
+                                                <input type="hidden" name="name" value="{{ $name->name }}">
+                                                <button type="submit" class="btn btn-danger"><i class="bi bi-trash"></i></button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
 
             <div class="card">
-                <div class="card-header">Surnames</div>
-                <div class="card-header text-end">
-                    <a href="{{ route('randoms.store.surname') }}" class="btn btn-primary">Add New</a>
+                <div class="card-header d-flex justify-content-between align-items-center" data-bs-toggle="collapse" href="#collapseSurname" role="button" aria-expanded="false" aria-controls="collapseSurname">
+                    <div>Surnames</div>
+                    <i class="bi bi-arrow-down-square"></i></button>
                 </div>
 
-                <div class="card-body">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th style="text-align: end;">Delete</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach($surnames as $surname)
+                <div class="collapse" id="collapseSurname">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span></span>
+                            <a href="{{ route('randoms.store.surname') }}" class="btn btn-primary ms-auto mb-2">Create <i class="bi bi-file-earmark-plus"></i></a>
+                        </div>
+
+                        <table class="table">
+                            <thead>
                                 <tr>
-                                    <td>{{ $surname->surname }}</td>
-                                    <td style="text-align: end;">
-                                        <form action="{{ route('randoms.surname.delete', ['id' => $surname->id]) }}" method="post">
-                                            @csrf
-                                            @method('delete')
-                                            <input type="hidden" name="surname" value="{{ $surname->surname }}">
-                                            <button type="submit" class="btn btn-danger">Delete</button>
-                                        </form>
-                                    </td>
+                                    <th>Name</th>
+                                    <th style="text-align: end;">Delete</th>
                                 </tr>
-                            @endforeach
-                        </tbody>
-                      </table>
+                            </thead>
+                            <tbody>
+                                @foreach($surnames as $surname)
+                                    <tr>
+                                        <td>{{ $surname->surname }}</td>
+                                        <td style="text-align: end;">
+                                            <form action="{{ route('randoms.surname.delete', ['id' => $surname->id]) }}" method="post">
+                                                @csrf
+                                                @method('delete')
+                                                <input type="hidden" name="surname" value="{{ $surname->surname }}">
+                                                <button type="submit" class="btn btn-danger"><i class="bi bi-trash"></i></button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
