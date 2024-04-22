@@ -58,39 +58,89 @@
                 </form>
             </div>
             <div class="tab-pane" id="names" role="tabpanel" aria-labelledby="names">
-                <div class="d-flex justify-content-between align-items-center">
-                    <span></span>
-                    <a href="{{ route('randoms.store.view.name') }}" class="btn btn-primary ms-auto mb-2">Create <i class="bi bi-file-earmark-plus"></i></a>
+                <ul class="nav nav-tabs" role="tablist">
+                    <li class="nav-item" role="presentation">
+                      <a class="nav-link active" id="simple-tab-0" data-bs-toggle="tab" href="#name-male" role="tab" aria-controls="random-generator" aria-selected="true">Male</a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                      <a class="nav-link" id="simple-tab-1" data-bs-toggle="tab" href="#name-female" role="tab" aria-controls="upload-name-surname" aria-selected="false">Female</a>
+                    </li>
+                </ul>
+
+                <div class="tab-content pt-5" id="tab-content">
+                    <div class="tab-pane active" id="name-male" role="tabpanel" aria-labelledby="name-male">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span></span>
+                            <a href="{{ route('randoms.store.view.name') }}" class="btn btn-primary ms-auto mb-2">Create <i class="bi bi-file-earmark-plus"></i></a>
+                        </div>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Gender</th>
+                                    <th style="text-align: end;">Export</th>
+                                    <th style="text-align: end;">Delete</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($maleNames as $name)
+                                    <tr>
+                                        <td>{{ $name->name }}</td>
+                                        <td>{{ $name->gender == 'm' ? 'Male' : 'Female' }}</td>
+                                        <td style="text-align: end;">
+                                            <a href="{{ route('randoms.export', ['name' => $name->name]) }}" class="btn btn-primary"><i class="bi bi-file-earmark-bar-graph"></i></a>
+                                        </td>
+                                        <td style="text-align: end;">
+                                            <form action="{{ route('randoms.name.delete', ['id' => $name->id]) }}" method="post">
+                                                @csrf
+                                                @method('delete')
+                                                <input type="hidden" name="name" value="{{ $name->name }}">
+                                                <button type="submit" class="btn btn-danger"><i class="bi bi-trash"></i></button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="tab-pane" id="name-female" role="tabpanel" aria-labelledby="name-female">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span></span>
+                            <a href="{{ route('randoms.store.view.name') }}" class="btn btn-primary ms-auto mb-2">Create <i class="bi bi-file-earmark-plus"></i></a>
+                        </div>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Gender</th>
+                                    <th style="text-align: end;">Export</th>
+                                    <th style="text-align: end;">Delete</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($femaleNames as $name)
+                                    <tr>
+                                        <td>{{ $name->name }}</td>
+                                        <td>{{ $name->gender == 'm' ? 'Male' : 'Female' }}</td>
+                                        <td style="text-align: end;">
+                                            <a href="{{ route('randoms.export', ['name' => $name->name]) }}" class="btn btn-primary"><i class="bi bi-file-earmark-bar-graph"></i></a>
+                                        </td>
+                                        <td style="text-align: end;">
+                                            <form action="{{ route('randoms.name.delete', ['id' => $name->id]) }}" method="post">
+                                                @csrf
+                                                @method('delete')
+                                                <input type="hidden" name="name" value="{{ $name->name }}">
+                                                <button type="submit" class="btn btn-danger"><i class="bi bi-trash"></i></button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Gender</th>
-                            <th style="text-align: end;">Export</th>
-                            <th style="text-align: end;">Delete</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach($names as $name)
-                            <tr>
-                                <td>{{ $name->name }}</td>
-                                <td>{{ $name->gender == 'm' ? 'Male' : 'Female' }}</td>
-                                <td style="text-align: end;">
-                                    <a href="{{ route('randoms.export', ['name' => $name->name]) }}" class="btn btn-primary"><i class="bi bi-file-earmark-bar-graph"></i></a>
-                                </td>
-                                <td style="text-align: end;">
-                                    <form action="{{ route('randoms.name.delete', ['id' => $name->id]) }}" method="post">
-                                        @csrf
-                                        @method('delete')
-                                        <input type="hidden" name="name" value="{{ $name->name }}">
-                                        <button type="submit" class="btn btn-danger"><i class="bi bi-trash"></i></button>
-                                    </form>
-                                </td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+
             </div>
             <div class="tab-pane" id="surnames" role="tabpanel" aria-labelledby="surnames">
                 <div class="d-flex justify-content-between align-items-center">

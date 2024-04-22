@@ -10,10 +10,18 @@ class RandomNameSurnameController extends Controller
 {
     public function index()
     {
-        $names = RandomName::all();
+        $namesByGender = RandomName::all();
+        $maleNames = $namesByGender->filter(function ($group) {
+            return $group->gender === 'm';
+        });
+
+        $femaleNames = $namesByGender->filter(function ($group) {
+            return $group->gender === 'f';
+        });
+
         $surnames = RandomSurname::all();
 
-        return view('randoms.index', compact('names', 'surnames'));
+        return view('randoms.index', compact('maleNames', 'femaleNames', 'surnames'));
     }
 
     public function storeNameView()
